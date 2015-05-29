@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Usage:
+#
+#     $ bin/compile <build-dir> <cache-dir> <env-path>
+
+# Fail fast and fail hard.
+set -eo pipefail
+
+echo "### compile ###"
+echo "\$0 = \"$0\""
+echo "\$@ = \"$@\""
+
+# Paths.
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
+ROOT_DIR=$(dirname $BIN_DIR)
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+cd $BUILD_DIR
+
+# FROM python:2-onbuild
+# CMD [ "python", "./your-daemon-or-script.py" ]
+
+virtualenv venv
+venv/bin/pip install -r requirements.txt
